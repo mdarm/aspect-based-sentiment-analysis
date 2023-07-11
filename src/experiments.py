@@ -22,8 +22,8 @@ def run_experiment(indices, n_splits=10, model_name='logistic_regression', vecto
         # Add 1 to the indices
         train_idx = [index + 1 for index in train_idx]
         test_idx = [index + 1 for index in test_idx]
-        print(train_idx, test_idx) 
-        # Initialize an empty DataFrame to store training data
+        print(f'----------------------- Running {test_idx[0]} experiment(s) -----------------------') 
+        # Initialise an empty DataFrame to store training data
         all_data = pd.DataFrame()
 
         # Process each XML file for training

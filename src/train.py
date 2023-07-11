@@ -1,5 +1,6 @@
 import os
 import csv
+import sys
 import joblib
 import numpy as np
 import pandas as pd
@@ -122,7 +123,10 @@ def train_model(dataframe, model_name = 'logistic_regression', vectoriser_name =
     elif model_name == 'svm':
         model = SVC(class_weight = 'balanced')
     elif model_name == 'multinomial_nb':
-        model = MultinomialNB()
+        if vectoriser_name == 'word2vec':
+            sys.exit("Multinomial Naive Bayes cannot accept non-positive values; aborting ...")
+        else:
+            model = MultinomialNB()
 
     
     # Train the model
