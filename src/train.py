@@ -121,7 +121,7 @@ def train_model(dataframe, model_name = 'logistic_regression', vectoriser_name =
         model = RandomForestClassifier(class_weight = 'balanced')
     elif model_name == 'svm':
         model = SVC(class_weight = 'balanced')
-    elif model_name == 'multinomia_nb':
+    elif model_name == 'multinomial_nb':
         model = MultinomialNB()
 
     
