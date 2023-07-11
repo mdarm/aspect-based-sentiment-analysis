@@ -2,7 +2,7 @@
 
 This repository contains the source code for an Aspect Sentiment Analysis project. The project involves reading data from an XML file, splitting the data into ten subfiles, and subsequently training a model using nine of these files. Both the vectoriser and the model are saved for future use. The remaining XML file is used for testing purposes and performing an 10-fold cross-validation.
 
-Please note that this code is case sensitive and no scalability considerations were included in its design. This means that while the code should work well for the provided dataset, and the one-off processing tasks, it may not perform optimally for other datasets or under high throughput demands.
+Please note that this code is case-specific and no considerations for scalability were made. This means that while the code should work well for the provided dataset, and the one-off processing tasks, it may not perform optimally for other datasets or under high throughput demands.
 
 ## Code Structure
 
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 ```
 
 ## Setting up the project
-The project requires you to have XML files for training and testing. For this purpose, we have a function `load_xmls` in [split.py](split.py) that takes as argument the name of the [XML file](dataset/ABSA16_Restaurants_Train_SB1_v2) and splits it into 10 subfiles. 
+The project requires you to have XML files for training and testing. For this purpose, there is a function `load_xmls` in [split.py](split.py) that takes as argument the name of the [XML file](dataset/ABSA16_Restaurants_Train_SB1_v2) and splits it into 10 subfiles. 
 
 ## Training
 The [train.py](src/train.py) script loads the 9 XML files, vectorises them, and fits them to a model. Both the vectoriser and the model are saved for testing.
