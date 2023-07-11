@@ -12,12 +12,14 @@ The code is initiated from [main.py](src/main.py).
 
 To ensure all functionalities of the project run as expected, the following Python libraries need to be installed:
 
-- `joblib==1.0.1`
-- `pandas==1.2.4`
-- `scikit-learn==0.24.2`
-- `nltk==3.6.2`
-- `gensim==4.3.1`
-- `beautifulsoup4==4.9.3`
+```bash
+joblib==1.0.1
+pandas==1.2.4
+scikit-learn==0.24.2
+nltk==3.6.2
+gensim==4.3.1
+beautifulsoup4==4.9.3
+```
 
 You can install these libraries by running:
 
