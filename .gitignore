@@ -1,0 +1,10 @@
+## Python stuff
+__pycache__
+outputs
+
+## virtualenv
+.venv
+venv*/
+ENV/
+virtual_env*/
+virt_env*/
