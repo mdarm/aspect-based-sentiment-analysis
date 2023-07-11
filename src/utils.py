@@ -31,7 +31,15 @@ def parse_args():
 
 # Tokenization of text and set English stopwords
 tokenizer = ToktokTokenizer()
-nltk.download('stopwords')
+
+# Check if stopwords are already downloaded
+def download_stopwords():
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        nltk.download('stopwords')
+        
+download_stopwords()
 stopword_list = nltk.corpus.stopwords.words('english')
 
 
