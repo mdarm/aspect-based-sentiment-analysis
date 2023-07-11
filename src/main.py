@@ -16,7 +16,14 @@ def run(model_name, vectoriser_name, max_features, min_df, max_df):
     indices = [x + 1 for x in range(10)]
 
     # Run the cross-validation experiments and print the average & individual F1 scores
-    avg_f1, idv_f1 = run_experiment(indices, n_splits=10, model_name=model_name, vectoriser_name=vectoriser_name, max_features = max_features, ngram_range = (1, 1), min_df = min_df, max_df = max_df)
+    avg_f1, idv_f1 = run_experiment(indices, n_splits=10,
+                                    model_name=model_name,
+                                    vectoriser_name=vectoriser_name,
+                                    max_features = max_features,
+                                    ngram_range = (1, 1),
+                                    min_df = min_df,
+                                    max_df = max_df)
+
     print(f'Average F1 score: {avg_f1}')
     print(f'Sentiment F1 scores: Neutral: {idv_f1[0]}, Positive: {idv_f1[1]}, Negative: {idv_f1[2]}')
 

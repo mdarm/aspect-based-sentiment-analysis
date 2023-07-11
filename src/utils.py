@@ -18,10 +18,10 @@ MIN_DF = 1
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', default=MODEL_NAME, type=str, help='Machine Learning model to use; choose one of "logistic_regression", "random_forest", "svm" and "multinomial_nb"' )
-    parser.add_argument('--vectoriser', default=VECTORISER, type=str, help='Vectoriser type; choose one of "count_vectoriser" and "tfidf"' )
-    parser.add_argument('--max_features', default=MAX_FEATURES, type=int, help='If not None, build a vocabulary that only considers the top max_features ordered by term frequency across the corpus.' )
-    parser.add_argument('--max_df', default=MAX_DF, type=float, help='Ignore terms that have a document frequency strictly higher than the given threshold; applies to both vectorisers.')
-    parser.add_argument('--min_df', default=MIN_DF, type=int, help='Ignore terms that have a document frequency strictly lower than the given threshold; applies to both vectorisers.')
+    parser.add_argument('--vectoriser', default=VECTORISER, type=str, help='Vectoriser type; choose one of "count_vectoriser", "tfidf" and "word2vec"' )
+    parser.add_argument('--max_features', default=MAX_FEATURES, type=int, help='If not None, build a vocabulary that only considers the top max_features ordered by term frequency across the corpus; does not apply to word2vec.' )
+    parser.add_argument('--max_df', default=MAX_DF, type=float, help='Ignore terms that have a document frequency strictly higher than the given threshold; does not apply to word2vec.')
+    parser.add_argument('--min_df', default=MIN_DF, type=int, help='Ignore terms that have a document frequency strictly lower than the given threshold; does not apply to word2vec.')
 
     # Parse the aforementioned arguments
     opt = parser.parse_args()

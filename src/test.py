@@ -1,9 +1,11 @@
 import re
+import numpy as np
+from gensim.models import Word2Vec
 from sklearn.metrics import f1_score
 from utils import strip_html, remove_between_square_brackets, denoise_text, remove_special_characters, simple_stemmer, remove_stopwords
 
 
-def test_model(dataframe, model, vectorizer):
+def test_model(dataframe, model, vectorizer, vectoriser_name):
 
     # Define the valid Polarity values and drop everything else
     valid_polarities = ['neutral', 'positive', 'negative']
@@ -19,8 +21,12 @@ def test_model(dataframe, model, vectorizer):
     dataframe['Text_Category'] = dataframe['Text_Category'].apply(remove_stopwords) 
 
     # Transform the text data with the loaded vectorizer
-    X_test = vectorizer.transform(dataframe['Text_Category'])
-
+    if vectoriser_name == 'word2vec':
+        sentences = [row.split() for row in dataframe['Text_Category']]
+        X_test = np.array([np.mean([vectorizer.wv[word] for word in sentence if word in vectorizer.wv.key_to_index], axis=0) for sentence in sentences])
+    else:
+        X_test = vectorizer.transform(dataframe['Text_Category'])
+    
     # Labeling the sentient data
     encode = {
         'neutral': 0,

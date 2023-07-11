@@ -1,6 +1,8 @@
 import os
 import joblib
 import pandas as pd
+import numpy as np
+from gensim.models import Word2Vec
 from split import load_xmls
 from test import test_model
 from train import xml_to_dataframe, train_model
@@ -36,7 +38,10 @@ def run_experiment(indices, n_splits=10, model_name='logistic_regression', vecto
 
         # Load the saved model and vectorizer
         model = joblib.load('trained_model.pkl')
-        vectorizer = joblib.load('vectorizer.pkl')
+        if vectoriser_name == 'word2vec':
+            vectorizer = Word2Vec.load("word2vec.model")
+        else:
+            vectorizer = joblib.load('vectorizer.pkl')
 
         # Read the XML file and convert it to a DataFrame
         xml_file = f'part{test_idx[0]}.xml'
@@ -44,7 +49,7 @@ def run_experiment(indices, n_splits=10, model_name='logistic_regression', vecto
             test_data = xml_to_dataframe(xml_file)
 
         # Test the model and append the F1 score to the list
-        f1_overall, f1_individual = test_model(test_data, model, vectorizer)
+        f1_overall, f1_individual = test_model(test_data, model, vectorizer, vectoriser_name)
         f1_scores.append(f1_overall)
         f1_individual_scores.append(f1_individual)
 

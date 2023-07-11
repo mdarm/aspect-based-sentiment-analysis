@@ -1,12 +1,14 @@
 import os
 import csv
 import joblib
+import numpy as np
 import pandas as pd
 import xml.etree.ElementTree as ET
 from utils import strip_html, remove_between_square_brackets, denoise_text, remove_special_characters, simple_stemmer, remove_stopwords
 from sklearn.linear_model import LogisticRegression 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from gensim.models import Word2Vec
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -85,14 +87,22 @@ def train_model(dataframe, model_name = 'logistic_regression', vectoriser_name =
                                      max_features = max_features,
                                      ngram_range  = ngram_range 
                                      )
+        X = vectorizer.fit_transform(dataframe['Text_Category'])
     elif vectoriser_name == 'tfidf':
         vectorizer = TfidfVectorizer(min_df       = min_df,
                                      max_df       = max_df,
                                      max_features = max_features,
                                      ngram_range  = ngram_range 
                                      )
+        X = vectorizer.fit_transform(dataframe['Text_Category'])
+    elif vectoriser_name == 'word2vec':
+        # Train a Word2Vec model
+        sentences = [row.split() for row in dataframe['Text_Category']]
+        vectorizer = Word2Vec(sentences, vector_size=100, window=5, min_count=1, workers=4)
+        vectorizer.save("word2vec.model")
 
-    X = vectorizer.fit_transform(dataframe['Text_Category'])
+        # Average the word vectors for each sentence
+        X = np.array([np.mean([vectorizer.wv[word] for word in sentence], axis=0) for sentence in sentences])
 
     # Labeling the sentient data
     encode = {
@@ -121,4 +131,5 @@ def train_model(dataframe, model_name = 'logistic_regression', vectoriser_name =
 
     # Save the trained model and vectorizer to disk
     joblib.dump(model, 'trained_model.pkl')
-    joblib.dump(vectorizer, 'vectorizer.pkl')
+    if vectoriser_name != 'word2vec':
+        joblib.dump(vectorizer, 'vectorizer.pkl')
