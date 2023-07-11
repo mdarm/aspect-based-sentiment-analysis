@@ -11,7 +11,7 @@ MODEL_NAME = 'logistic_regression'
 VECTORISER = 'count_vectoriser'
 MAX_FEATURES = None
 MAX_DF = 1.0
-MIN_DF = 1.0
+MIN_DF = 1
 
 
 # Argument parser
@@ -21,7 +21,7 @@ def parse_args():
     parser.add_argument('--vectoriser', default=VECTORISER, type=str, help='Vectoriser type; choose one of "count_vectoriser" and "tfidf"' )
     parser.add_argument('--max_features', default=MAX_FEATURES, type=int, help='If not None, build a vocabulary that only considers the top max_features ordered by term frequency across the corpus.' )
     parser.add_argument('--max_df', default=MAX_DF, type=float, help='Ignore terms that have a document frequency strictly higher than the given threshold; applies to both vectorisers.')
-    parser.add_argument('--min_df', default=MIN_DF, type=float, help='Ignore terms that have a document frequency strictly lower than the given threshold; applies to both vectorisers.')
+    parser.add_argument('--min_df', default=MIN_DF, type=int, help='Ignore terms that have a document frequency strictly lower than the given threshold; applies to both vectorisers.')
 
     # Parse the aforementioned arguments
     opt = parser.parse_args()
